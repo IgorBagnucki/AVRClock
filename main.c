@@ -1,6 +1,6 @@
 #include "common.h"
 #include "dbg.h"
-#include "twi.h"
+#include "clock.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/sleep.h>
@@ -35,12 +35,15 @@ void sleep(void) {
 }
 
 int main(void) {
-	uint8_t time[2] = {0, 0};
+	TIME time = {};
 	init();
-	twi_write(time, 2, 2);
-	//for (;;);
+	time.minutes = 0x07;
+	time.seconds = 0x15;
+	clk_set_time(&time);
+
 	while (true) {
-		twi_read(time, 2, 2);
-		dbg_print(((0x3F & time[1])<< 8) | (0x7F & time[0]));
+		clk_get_time(&time);
+		dbg_print((time.minutes << 8) | time.seconds);
 	}
+	return 0;
 }
