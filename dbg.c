@@ -4,6 +4,8 @@
 
 #define DIO PB6
 #define CLK PB7
+#define DIO_DDR DDB6
+#define CLK_DDR DDB7
 #define LOW 0
 #define HIGH 1
 #define IN 0
@@ -142,7 +144,7 @@ void fourDigit_display(char* digits, int light, bool colon) {
 }
 
 void dbg_init() {
-	DDRB = 1 << DDB6 | 1 << DDB7;
+	DDRB = 1 << CLK_DDR | 1 << DIO_DDR;
 }
 
 void dbg_print(unsigned int number) {
