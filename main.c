@@ -1,6 +1,7 @@
 #include "common.h"
 #include "dbg.h"
 #include "clock.h"
+#include "spi.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/sleep.h>
@@ -9,6 +10,7 @@
 
 void init(void) {
 	dbg_init();
+	disp_init();
 	ADCSRA = 0;
 	sleep_enable();
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -37,9 +39,15 @@ void sleep(void) {
 int main(void) {
 	TIME time = {};
 	init();
-	time.minutes = 0x07;
-	time.seconds = 0x15;
+	time.minutes = 0x0;
+	time.seconds = 0x0;
 	clk_set_time(&time);
+
+	SPI_MasterTransmit(0x41);
+	SPI_MasterTransmit(0x41);
+	SPI_MasterTransmit(0x41);
+	SPI_MasterTransmit(0x41);
+	sleep();
 
 	while (true) {
 		clk_get_time(&time);

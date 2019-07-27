@@ -144,7 +144,7 @@ void fourDigit_display(char* digits, int light, bool colon) {
 }
 
 void dbg_init() {
-	DDRB = 1 << CLK_DDR | 1 << DIO_DDR;
+	DDRB |= 1 << CLK_DDR | 1 << DIO_DDR;
 }
 
 void dbg_print(unsigned int number) {
