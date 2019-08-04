@@ -1,9 +1,14 @@
 #include <stdint.h>
+#include "dbg.h"
 #include "common.h"
 #include "clock.h"
 #include "twi.h"
 
-#define TIME_ADDRESS 2
+#define TIME_ADDRESS 0x02
+#define MINUTE_ALARM_ADDRESS 0x09
+#define CONTROL_STATUS_2_ADDRESS 0x01
+#define AF 3
+#define AIE 1
 
 void clk_set_time(TIME *time) {
 	uint8_t time_array[7];
@@ -28,4 +33,16 @@ void clk_get_time(TIME *time) {
 	time->century	= (time_array[5] & 0x80) >> 7;
 	time->months	= time_array[5] & 0x1F;
 	time->years		= time_array[6] & 0xFF;
+}
+
+void clk_set_alarm(uint8_t minute) {
+	uint8_t control_status = 0;
+	minute %= 60;
+	twi_read(&control_status, CONTROL_STATUS_2_ADDRESS, 1);
+	// clear alarm flag
+	control_status &= ~(1 << AF);
+	// enable alarm interrupt
+	control_status |= (1 << AIE);
+	twi_write(&minute, MINUTE_ALARM_ADDRESS, 1);
+	twi_write(&control_status , CONTROL_STATUS_2_ADDRESS, 1);
 }

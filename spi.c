@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include "dbg.h"
 
 #define DDR_SPI DDRB
 #define DD_MOSI DDB3
@@ -18,11 +19,7 @@ void SPI_MasterTransmit(char cData)
 {
 
 	/* Start transmission */
-	/* Slave select set to low */
-	//DDR_SPI &= ~(1 << P_SS);
 	SPDR = cData;
 	/* Wait for transmission complete */
 	while (!(SPSR & (1 << SPIF)));
-	/* Slave select set to high */
-	//DDR_SPI |= (1 << P_SS);
 }
