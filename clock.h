@@ -16,3 +16,4 @@ typedef struct tagTIME {
 void clk_set_time(TIME *time);
 void clk_get_time(TIME *time);
 void clk_set_alarm(uint8_t);
+void clk_clear_alarm(void);

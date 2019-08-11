@@ -9,6 +9,7 @@
 #define CONTROL_STATUS_2_ADDRESS 0x01
 #define AF 3
 #define AIE 1
+#define ALARM_ENABLE 0x8000
 
 void clk_set_time(TIME *time) {
 	uint8_t time_array[7];
@@ -37,7 +38,8 @@ void clk_get_time(TIME *time) {
 
 void clk_set_alarm(uint8_t minute) {
 	uint8_t control_status = 0;
-	minute %= 60;
+	// enable minute alarm
+	minute |= ALARM_ENABLE;
 	twi_read(&control_status, CONTROL_STATUS_2_ADDRESS, 1);
 	// clear alarm flag
 	control_status &= ~(1 << AF);
@@ -45,4 +47,12 @@ void clk_set_alarm(uint8_t minute) {
 	control_status |= (1 << AIE);
 	twi_write(&minute, MINUTE_ALARM_ADDRESS, 1);
 	twi_write(&control_status , CONTROL_STATUS_2_ADDRESS, 1);
+}
+
+void clk_clear_alarm(void) {
+	uint8_t control_status = 0;
+	twi_read(&control_status, CONTROL_STATUS_2_ADDRESS, 1);
+	// clear alarm flag and disable alarm interrupt
+	control_status &= ~((1 << AF) | (1 << AIE));
+	twi_write(&control_status, CONTROL_STATUS_2_ADDRESS, 1);
 }
