@@ -315,6 +315,82 @@ void disp_writeBigTime(TIME *time, bool underscored[10]) {
 	}
 }
 
+void disp_writeSmallTime(TIME *time, const uint8_t image[][DISP_WIDTH]) {
+	disp_prepareForMemoryWrite();
+
+	unsigned int smallFontTopOffset = 12;
+	unsigned int smallFontRightOffsetTab[5] = {
+		(DISP_WIDTH - (DISP_SMALL_FONT_WIDTH * 5)) / 2 + DISP_SMALL_FONT_WIDTH * 4,
+		(DISP_WIDTH - (DISP_SMALL_FONT_WIDTH * 5)) / 2 + DISP_SMALL_FONT_WIDTH * 3,
+		(DISP_WIDTH - (DISP_SMALL_FONT_WIDTH * 5)) / 2 + DISP_SMALL_FONT_WIDTH * 2,
+		(DISP_WIDTH - (DISP_SMALL_FONT_WIDTH * 5)) / 2 + DISP_SMALL_FONT_WIDTH * 1,
+		(DISP_WIDTH - (DISP_SMALL_FONT_WIDTH * 5)) / 2 + DISP_SMALL_FONT_WIDTH * 0,
+	};
+
+	char str_small[6] = ":::::";
+	// TIME is coded in bcd
+	str_small[0] = '0' + time->hours / 0x10;
+	str_small[1] = '0' + time->hours % 0x10;
+	str_small[3] = '0' + time->minutes / 0x10;
+	str_small[4] = '0' + time->minutes % 0x10;
+
+	for (unsigned int x = 0; x < DISP_WIDTH; ++x) {
+		for (unsigned int y = 0; y < DISP_HEIGHT / 8; ++y) {
+			char character = '\0';
+			//small font
+			for (unsigned int charNumber = 0; charNumber < 5; ++charNumber) {
+				if (x >= smallFontRightOffsetTab[charNumber] && x < smallFontRightOffsetTab[charNumber] + DISP_SMALL_FONT_WIDTH &&
+					y >= smallFontTopOffset && y < smallFontTopOffset + DISP_SMALL_FONT_HEIGHT / 8) {
+					character = str_small[charNumber];
+					unsigned int smallFontRightOffset = smallFontRightOffsetTab[charNumber];
+					switch (character) {
+					case '0':
+						disp_sendData(pgm_read_byte(&(s_0[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '1':
+						disp_sendData(pgm_read_byte(&(s_1[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '2':
+						disp_sendData(pgm_read_byte(&(s_2[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '3':
+						disp_sendData(pgm_read_byte(&(s_3[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '4':
+						disp_sendData(pgm_read_byte(&(s_4[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '5':
+						disp_sendData(pgm_read_byte(&(s_5[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '6':
+						disp_sendData(pgm_read_byte(&(s_6[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '7':
+						disp_sendData(pgm_read_byte(&(s_7[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '8':
+						disp_sendData(pgm_read_byte(&(s_8[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '9':
+						disp_sendData(pgm_read_byte(&(s_9[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case ':':
+						disp_sendData(pgm_read_byte(&(s_colon[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					case '/':
+						disp_sendData(pgm_read_byte(&(s_slash[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						break;
+					}
+					break;
+				}
+			}
+			if (character == '\0') {
+				disp_sendData(pgm_read_byte(&(image[y][DISP_WIDTH - x])));
+			}
+		}
+	}
+}
+
 void disp_displayFrame() {
 	disp_sendCommand(MASTER_ACTIVATION);
 	disp_sendCommand(TERMINATE_FRAME_READ_WRITE);

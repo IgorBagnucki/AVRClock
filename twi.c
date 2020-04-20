@@ -2,68 +2,79 @@
 #include "dbg.h"
 #include <util/twi.h>
 
-void twi_start(uint8_t address) {
+bool wait_for_twcr() {
+	uint8_t counter = 0;
+	while (!(TWCR & (1 << TWINT))) {
+		counter += 1;
+		if (counter == 0)
+			return false;
+	}
+	return true;
+}
+
+bool twi_start(uint8_t address) {
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)));
+	TRY(wait_for_twcr());
 	if (TWSR & 0xF8 != TW_START) {
-		dbg_print((0xE0 << 8) | (0xF8 & TWSR));
-		return;
+		return false;
 	}
 	TWDR = address;
 	TWCR = (1 << TWINT) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)));
+	TRY(wait_for_twcr());
 	if (TWSR & 0xF8 != TW_MT_SLA_ACK && TWSR & 0xF8 != TW_MR_SLA_ACK) {
-		dbg_print((0xE1 << 8) | (TWSR & 0xF8));
-		return;
+		return false;
 	}
+	return true;
 }
 
-void twi_start_write() {
-	twi_start(0xA2);
+bool twi_start_write() {
+	return twi_start(0xD0);
 }
 
-void twi_start_read(void) {
-	twi_start(0xA3);
+bool twi_start_read(void) {
+	return twi_start(0xD1);
 }
 
-void twi_send_byte(uint8_t data) {
+bool twi_send_byte(uint8_t data) {
 	TWDR = data;
 	TWCR = (1 << TWINT) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)));
+	TRY(wait_for_twcr());
 	if ((TWSR & 0xF8) != TW_MT_DATA_ACK) {
-		dbg_print((0xE2 << 8) | (TWSR & 0xF8));
-		return;
+		return false;
 	}
+	return true;
 }
 
-uint8_t twi_read_byte(bool ack) {
+bool twi_read_byte(bool ack, uint8_t *byte) {
 	TWCR = (1 << TWINT) | (ack << TWEA) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)));
-	return TWDR;
+	TRY(wait_for_twcr());
+	*byte = TWDR;
+	return true;
 }
 
-void twi_stop(void) {
+bool twi_stop(void) {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+	return true;
 }
 
-void twi_read(uint8_t *dst, int addr, int len) {
-	twi_start_write();
-	twi_send_byte(addr);
-	twi_stop();
-	twi_start_read();
+bool twi_read(uint8_t *dst, int addr, int len) {
+	TRY(twi_start_write());
+	TRY(twi_send_byte(addr));
+	TRY(twi_stop());
+	TRY(twi_start_read());
 	for (unsigned int pos = 0; pos < len; ++pos) {
-		dst[pos] = twi_read_byte(pos != (len - 1));
+		TRY(twi_read_byte(pos != (len - 1), &dst[pos]));
 	}
-	twi_stop();
+	TRY(twi_stop());
+	return true;
 }
 
-void twi_write(uint8_t *src, int addr, int len) {
-	twi_start_write();
-	twi_send_byte(addr);
-	//twi_stop();
-	//twi_start_write();
+bool twi_write(uint8_t *src, int addr, int len) {
+	TRY(twi_start_write());
+	TRY(twi_send_byte(addr));
 	for (unsigned int pos = 0; pos < len; ++pos) {
-		twi_send_byte(src[pos]);
+		TRY(twi_send_byte(src[pos]));
 	}
-	twi_stop();
+	TRY(twi_stop());
+	return true;
 }

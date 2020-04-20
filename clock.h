@@ -13,7 +13,7 @@ typedef struct tagTIME {
 	uint8_t years;
 } TIME, *PTIME;
 
-void clk_set_time(TIME *time);
-void clk_get_time(TIME *time);
-void clk_set_alarm(uint8_t);
-void clk_clear_alarm(void);
+bool clk_set_time(TIME *time);
+bool clk_get_time(TIME *time);
+bool clk_stop(void);
+bool clk_start(void);
