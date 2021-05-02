@@ -17,7 +17,7 @@ def create_list_from_img(img):
     return bitmap
 
 def create_cpp_array_from_list(img, name):
-    code = f'uint8_t {name}[{len(img)}][{len(img[0])}] PROGMEM = '
+    code = f'const uint8_t {name}[{len(img)}][{len(img[0])}] PROGMEM = '
     code += '{\n'
     for vertical_line in img:
         code += '    {'
