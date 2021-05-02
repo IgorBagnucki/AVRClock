@@ -26,7 +26,7 @@ for file in files:
     if not img:
         print('Error: can\'t open', file)
         sys.exit(1)
-    img_list = create_list_from_img(img)
+    img_list = compress_list(create_list_from_img(img))
     cpp_array += create_cpp_array_from_list(img_list, 's_' + file)
 
 code = create_cpp_code(cpp_array)
