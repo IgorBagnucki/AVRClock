@@ -210,37 +210,37 @@ void disp_writeBigTime(TIME *time, bool underscored[10]) {
 					unsigned int bigFontRightOffset = bigFontRightOffsetTab[charNumber];
 					switch (character) {
 					case '0':
-						disp_sendData(pgm_read_byte(&(b_0[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_0, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '1':
-						disp_sendData(pgm_read_byte(&(b_1[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_1, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '2':
-						disp_sendData(pgm_read_byte(&(b_2[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_2, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '3':
-						disp_sendData(pgm_read_byte(&(b_3[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_3, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '4':
-						disp_sendData(pgm_read_byte(&(b_4[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_4, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '5':
-						disp_sendData(pgm_read_byte(&(b_5[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_5, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '6':
-						disp_sendData(pgm_read_byte(&(b_6[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_6, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '7':
-						disp_sendData(pgm_read_byte(&(b_7[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_7, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '8':
-						disp_sendData(pgm_read_byte(&(b_8[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_8, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case '9':
-						disp_sendData(pgm_read_byte(&(b_9[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_9, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					case ':':
-						disp_sendData(pgm_read_byte(&(b_colon[y - bigFontTopOffset][DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(b_colon, y - bigFontTopOffset, DISP_BIG_FONT_WIDTH - x + bigFontRightOffset - 1, DISP_BIG_FONT_WIDTH));
 						break;
 					}
 					break;
@@ -261,40 +261,40 @@ void disp_writeBigTime(TIME *time, bool underscored[10]) {
 						unsigned int smallFontRightOffset = smallFontRightOffsetTab[charNumber];
 						switch (character) {
 						case '0':
-							disp_sendData(pgm_read_byte(&(s_0[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_0, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '1':
-							disp_sendData(pgm_read_byte(&(s_1[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_1, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '2':
-							disp_sendData(pgm_read_byte(&(s_2[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_2, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '3':
-							disp_sendData(pgm_read_byte(&(s_3[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_3, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '4':
-							disp_sendData(pgm_read_byte(&(s_4[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_4, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '5':
-							disp_sendData(pgm_read_byte(&(s_5[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_5, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '6':
-							disp_sendData(pgm_read_byte(&(s_6[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_6, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '7':
-							disp_sendData(pgm_read_byte(&(s_7[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_7, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '8':
-							disp_sendData(pgm_read_byte(&(s_8[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_8, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '9':
-							disp_sendData(pgm_read_byte(&(s_9[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_9, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case ':':
-							disp_sendData(pgm_read_byte(&(s_colon[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_colon, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						case '/':
-							disp_sendData(pgm_read_byte(&(s_slash[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+							disp_sendData(disp_readCompressed(s_slash, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 							break;
 						}
 						break;
@@ -345,47 +345,47 @@ void disp_writeSmallTime(TIME *time, const uint8_t image[][DISP_WIDTH]) {
 					unsigned int smallFontRightOffset = smallFontRightOffsetTab[charNumber];
 					switch (character) {
 					case '0':
-						disp_sendData(pgm_read_byte(&(s_0[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_0, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '1':
-						disp_sendData(pgm_read_byte(&(s_1[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_1, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '2':
-						disp_sendData(pgm_read_byte(&(s_2[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_2, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '3':
-						disp_sendData(pgm_read_byte(&(s_3[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_3, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '4':
-						disp_sendData(pgm_read_byte(&(s_4[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_4, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '5':
-						disp_sendData(pgm_read_byte(&(s_5[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_5, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '6':
-						disp_sendData(pgm_read_byte(&(s_6[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_6, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '7':
-						disp_sendData(pgm_read_byte(&(s_7[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_7, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '8':
-						disp_sendData(pgm_read_byte(&(s_8[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_8, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '9':
-						disp_sendData(pgm_read_byte(&(s_9[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_9, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case ':':
-						disp_sendData(pgm_read_byte(&(s_colon[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_colon, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					case '/':
-						disp_sendData(pgm_read_byte(&(s_slash[y - smallFontTopOffset][DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1])));
+						disp_sendData(disp_readCompressed(s_slash, y - smallFontTopOffset, DISP_SMALL_FONT_WIDTH - x + smallFontRightOffset - 1, DISP_SMALL_FONT_WIDTH));
 						break;
 					}
 					break;
 				}
 			}
 			if (character == '\0') {
-				disp_sendData(pgm_read_byte(&(image[y][DISP_WIDTH - x])));
+				disp_sendData(disp_readCompressed(image, y, DISP_WIDTH - x, DISP_WIDTH));
 			}
 		}
 	}
@@ -394,4 +394,16 @@ void disp_writeSmallTime(TIME *time, const uint8_t image[][DISP_WIDTH]) {
 void disp_displayFrame() {
 	disp_sendCommand(MASTER_ACTIVATION);
 	disp_sendCommand(TERMINATE_FRAME_READ_WRITE);
+}
+
+uint8_t disp_readCompressed(const uint8_t img[], unsigned int y, unsigned int x, unsigned int width) {
+	unsigned int imageOffset = y * width + x;
+	unsigned int currentDecompressedIndex = 0;
+	for(unsigned int compressedIndex = 0; compressedIndex <= imageOffset*2; compressedIndex += 2) {
+		currentDecompressedIndex += pgm_read_byte(&img[compressedIndex]);
+		if(currentDecompressedIndex >= imageOffset) {
+			return pgm_read_byte(&img[compressedIndex+1]);
+		}
+	}
+	return 0;
 }

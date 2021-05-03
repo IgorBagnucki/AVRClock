@@ -13,3 +13,4 @@ void disp_writeMemory(const uint8_t image[][DISP_WIDTH]);
 void disp_displayFrame();
 void disp_writeBigTime(TIME *time, bool underscored[10]);
 void disp_writeSmallTime(TIME *time, const uint8_t image[][DISP_WIDTH]);
+uint8_t disp_readCompressed(const uint8_t img[], unsigned int x, unsigned int y, unsigned int width);
